@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/11 21:08:40 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/11 21:57:28 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,13 @@ void	fdf_arg_error(void);
 
 // draw.c
 void	draw_map(t_param *param, t_map *map);
+void	draw_reload(t_param *param);			// rewrite!!!
+
+// hook.c
+int		key_hook(int keycode, t_param *param);	// rewrite
+
+// main.c
+int		expose_hook(t_param *param);
+void	print_map(t_map *map);
 
 #endif
