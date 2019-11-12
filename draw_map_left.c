@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:08:47 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/12 23:20:40 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 00:06:29 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ void	draw_line_left(t_param *param, t_vector point1, t_vector point2, t_vector *
 	int	i;
 	int	j;
 
-	dy = point2.y - point1.y;
 	dz = point2.z - point1.z;
-	e = dz - dy;
-	i = point1.y;
-	j = point1.z;
+	dy = point2.y - point1.y;
+	e = dy - dz;
+	i = point1.z;
+	j = point1.y;
 	while (i <= point2.z - 1)
 	{
 		draw_pixel(param, i, j, first_point, alt);
 		if (e >= 0)
 		{
 			j++;
-			e -= dy;
+			e -= dz;
 		}
 		i++;
-		e += dz;
+		e += dy;
 	}
 }
 
@@ -45,10 +45,10 @@ void	draw_line_left_vert(t_param *param, t_vector point1, t_vector point2, t_vec
 	int	i;
 	int	j;
 
-	dy = point2.y - point1.y;
 	dz = point2.z - point1.z;
-	i = point1.y;
-	j = point1.z;
+	dy = point2.y - point1.y;
+	i = point1.z;
+	j = point1.y;
 	while (j <= point2.y - 1)
 	{
 		draw_pixel(param, i, j, first_point, alt);
