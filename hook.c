@@ -6,17 +6,17 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 21:49:12 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/11 21:49:35 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:50:04 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int				key_hook(int keycode, t_env *e)
+int				key_hook(int keycode, t_param *param)
 {
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(e->mlx, e->win);
+		mlx_destroy_window(param->mlx, param->wnd);
 		exit(0);
 	}
 	return (0);

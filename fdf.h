@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/11 21:57:28 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:21:57 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define DEC_L 100
 # define SIZE_W 20
 # define SIZE_H 20
+# define SIZE 30
 
 # define WINDOW_SIZE_H 1000
 # define WINDOW_SIZE_W 2000
@@ -64,6 +65,13 @@
 # define KEY_ROT_Z_U 88
 # define KEY_ROT_Z_D 85
 
+typedef struct	s_vector
+{
+	int	x;
+	int	y;
+	int	z;
+}				t_vector;
+
 typedef struct	s_map 
 {
 	int	**elems;
@@ -76,6 +84,7 @@ typedef struct	s_param
 	void	*mlx;
 	void	*wnd;
 	void	*img;
+	t_map	*map;
 }				t_param;
 
 // reader.c
@@ -93,7 +102,7 @@ void	fdf_arg_error(void);
 
 // draw.c
 void	draw_map(t_param *param, t_map *map);
-void	draw_reload(t_param *param);			// rewrite!!!
+void	draw_reload(t_param *param, t_map *map);	// rewrite!!!
 
 // hook.c
 int		key_hook(int keycode, t_param *param);	// rewrite

@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/11 21:54:48 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:22:27 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	print_map(t_map *map)
 	printf("=== END ===\n");
 }
 
-int		expose_hook(t_param *param)
+/*int		expose_hook(t_param *param)
 {
-	draw_reload(param);		// rewrite
+	draw_reload(param, map);		// rewrite
 	return (0);
-}
+}*/
 
 int		main(int ac, char **av)
 {
@@ -54,7 +54,9 @@ int		main(int ac, char **av)
 	param.mlx = mlx_init();
 	param.wnd = mlx_new_window(param.mlx, WINDOW_SIZE_W, WINDOW_SIZE_H, "FDF");
 //	draw_map(&param, map);
-	mlx_expose_hook(param.wnd, expose_hook, &param);
+//	mlx_expose_hook(param.wnd, expose_hook, &param);
+	param.map = map;
+	draw_reload(&param, map);
 	mlx_hook(param.wnd, 2, 3, key_hook, &param);
 	mlx_loop(param.mlx);
 	return (0);
