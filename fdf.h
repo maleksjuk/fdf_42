@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/12 15:21:57 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/12 23:18:26 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,48 +22,19 @@
 
 # include "libft/includes/libft.h"
 
-# define DEC_T 100
-# define DEC_L 100
-# define SIZE_W 20
-# define SIZE_H 20
 # define SIZE 30
+# define SIZE_H 10
 
-# define WINDOW_SIZE_H 1000
-# define WINDOW_SIZE_W 2000
-
-//Move pixel
-# define MOVE_UP -100
-# define MOVE_DOWN 100
-# define MOVE_LEFT -100
-# define MOVE_RIGHT 100
-
-# define MOVE_ZOOM_IN 1.1
-# define MOVE_ZOOM_OUT 0.9
-
-# define MOVE_ROT_X_U -M_PI / 64
-# define MOVE_ROT_X_D M_PI / 64
-# define MOVE_ROT_Y_U -M_PI / 64
-# define MOVE_ROT_Y_D M_PI / 64
-# define MOVE_ROT_Z_U -M_PI / 64
-# define MOVE_ROT_Z_D M_PI / 64
+# define WINDOW_SIZE_H 800
+# define WINDOW_SIZE_W 1600
 
 // Key code
 # define KEY_ESC 53
 
-# define KEY_UP 126
-# define KEY_DOWN 125
-# define KEY_LEFT 123
-# define KEY_RIGHT 124
-
-# define KEY_ZOOM_IN 69
-# define KEY_ZOOM_OUT 78
-
-# define KEY_ROT_X_U 86
-# define KEY_ROT_X_D 83
-# define KEY_ROT_Y_U 87
-# define KEY_ROT_Y_D 84
-# define KEY_ROT_Z_U 88
-# define KEY_ROT_Z_D 85
+# define KEY_FRONT 89
+# define KEY_UP 83
+# define KEY_LEFT 92
+# define KEY_ISO 85
 
 typedef struct	s_vector
 {
@@ -101,8 +72,20 @@ void	fdf_map_error(void);
 void	fdf_arg_error(void);
 
 // draw.c
-void	draw_map(t_param *param, t_map *map);
+void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt);
 void	draw_reload(t_param *param, t_map *map);	// rewrite!!!
+
+// draw_map_front.c
+void	draw_map(t_param *param, t_map *map);
+
+// draw_map_up.c
+void	draw_map_up(t_param *param, t_map *map);
+
+// draw_map_left.c
+void	draw_map_left(t_param *param, t_map *map);
+
+// draw_map_iso.c
+void	draw_map_iso(t_param *param, t_map *map);
 
 // hook.c
 int		key_hook(int keycode, t_param *param);	// rewrite

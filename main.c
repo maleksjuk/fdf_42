@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/12 15:22:27 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/12 22:46:02 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,11 @@ int		main(int ac, char **av)
 	printf("*** main.c: begin\n");
 	if (ac != 2)
 		return (1);
-//	printf("*** main.c: map -> reader()\n");
 	map = reader(av[1]);
-//	printf("*** main.c: map -> print_map()\n");
-//	print_map(map);
 	param.mlx = mlx_init();
 	param.wnd = mlx_new_window(param.mlx, WINDOW_SIZE_W, WINDOW_SIZE_H, "FDF");
-//	draw_map(&param, map);
-//	mlx_expose_hook(param.wnd, expose_hook, &param);
 	param.map = map;
+//	print_map(map);
 	draw_reload(&param, map);
 	mlx_hook(param.wnd, 2, 3, key_hook, &param);
 	mlx_loop(param.mlx);

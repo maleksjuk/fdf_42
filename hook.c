@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 21:49:12 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/12 13:50:04 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/12 22:36:05 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,6 @@ int				key_hook(int keycode, t_param *param)
 		exit(0);
 	}
 	return (0);
+	if (keycode == KEY_FRONT)
+		draw_map(param, param->map);
 }
