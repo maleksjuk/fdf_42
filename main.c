@@ -6,13 +6,13 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 12:54:15 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:45:10 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	print_map(t_map *map)
+/*void	print_map(t_map *map)
 {
 	int	i;
 	int	j;
@@ -31,12 +31,6 @@ void	print_map(t_map *map)
 		j++;
 	}
 	printf("=== END ===\n");
-}
-
-/*int		expose_hook(t_param *param)
-{
-	draw_reload(param, map);		// rewrite
-	return (0);
 }*/
 
 int		main(int ac, char **av)
@@ -52,7 +46,7 @@ int		main(int ac, char **av)
 	param.wnd = mlx_new_window(param.mlx, WINDOW_SIZE_W, WINDOW_SIZE_H, "FDF");
 	param.map = map;
 //	print_map(map);
-	draw_reload(&param, map);
+	draw(&param, map);
 	mlx_hook(param.wnd, 2, 3, key_hook, &param);
 	mlx_loop(param.mlx);
 	return (0);

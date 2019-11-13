@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 21:05:32 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 19:27:01 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:44:03 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt)
 	mlx_pixel_put(param->mlx, param->wnd, i + first_point->x, j + first_point->y, color);
 }
 
-void	draw_reload(t_param *param, t_map *map)
+void	draw(t_param *param, t_map *map)
 {
 //	param->img = mlx_new_image(param->mlx, WINDOW_SIZE_W + 100, WINDOW_SIZE_H + 100);
 	draw_map(param, map);

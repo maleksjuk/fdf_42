@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 16:14:46 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:48:16 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "libft/includes/libft.h"
 
 # define SIZE 30
-# define SIZE_H 10
+# define SIZE_H 12
 
 # define WINDOW_SIZE_H 1000
 # define WINDOW_SIZE_W 1600
@@ -74,7 +74,7 @@ void	fdf_arg_error(void);
 
 // draw.c
 void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt);
-void	draw_reload(t_param *param, t_map *map);	// rewrite!!!
+void	draw(t_param *param, t_map *map);	// rewrite!!!
 
 // draw_map_front.c
 void	draw_map(t_param *param, t_map *map);
@@ -92,7 +92,5 @@ void	draw_map_iso(t_param *param, t_map *map);
 int		key_hook(int keycode, t_param *param);	// rewrite
 
 // main.c
-int		expose_hook(t_param *param);
-void	print_map(t_map *map);
 
 #endif
