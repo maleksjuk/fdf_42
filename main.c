@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/12 22:46:02 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:54:15 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_map(t_map *map)
 		i = 0;
 		while (i < map->len_x)
 		{
-			printf("%-*i", 3, map->elems[j][i]);
+			printf("%-*i", 3, map->elems[j][i].z);
 			i++;
 		}
 		printf("\n");

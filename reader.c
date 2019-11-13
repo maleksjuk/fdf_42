@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:56:27 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/12 22:45:51 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:35:52 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,47 @@ int		ft_map_line(char *map)
 	return (nb_lines);
 }
 
-int		*to_elems(char *line)
+t_vector	*to_elems(char *line, int axis_y)
 {
-	int		i;
-	char	**array_line;
-	int		*array_elem;
+	int			i;
+	char		**array_line;
+	t_vector	*array_elem;
 
 	array_line = ft_strsplit(line, ' ');
 	i = 0;
-	array_elem = (int *)malloc(sizeof(int) * len_nbr_line(line));
+	array_elem = (t_vector *)malloc(sizeof(t_vector) * len_nbr_line(line));
 	while (array_line[i])
 	{
-		array_elem[i] = (int)malloc(sizeof(int));
-		array_elem[i] = ft_getnbr(array_line[i]);
+		//array_elem[i] = (t_vector)malloc(sizeof(t_vector));
+		array_elem[i].x = i;
+		array_elem[i].y = axis_y;
+		array_elem[i].z = ft_getnbr(array_line[i]);
 		i++;
 	}
 	return (array_elem);
 }
 
-t_map	*reader(char *file)
+void		find_max_z(t_map *map)
+{
+	int	i;
+	int	j;
+
+	map->max_z = 0;
+	j = 0;
+	while (j < map->len_y)
+	{
+		i = 0;
+		while (i < map->len_x)
+		{
+			if (map->elems[j][i].z > map->max_z)
+				map->max_z = map->elems[j][i].z;
+			i++;
+		}
+		j++;
+	}
+}
+
+t_map		*reader(char *file)
 {
 	int		fd;
 	char	*line;
@@ -87,7 +109,7 @@ t_map	*reader(char *file)
 
 	axis_y = 0;
 	if (!(map = (t_map *)malloc(sizeof(t_map))) ||
-		!(map->elems = (int **)malloc(sizeof(int) * ft_map_line(file))))
+		!(map->elems = (t_vector **)malloc(sizeof(t_vector) * ft_map_line(file))))
 		fdf_malloc_error();
 	map->len_x = 0;
 	map->len_y = 0;
@@ -95,11 +117,12 @@ t_map	*reader(char *file)
 		fdf_exit();
 	while (get_next_line(fd, &line) > 0)
 	{
-		map->elems[axis_y] = (int *)to_elems(line);
+		map->elems[axis_y] = (t_vector *)to_elems(line, axis_y);
 		map->len_x = len_nbr_line(line) - 1;
 		axis_y++;
 	}
 	close(fd);
 	map->len_y = axis_y;
+	find_max_z(map);
 	return (map);
 }

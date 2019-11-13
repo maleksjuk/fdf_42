@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/12 23:18:26 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 16:14:46 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define SIZE 30
 # define SIZE_H 10
 
-# define WINDOW_SIZE_H 800
+# define WINDOW_SIZE_H 1000
 # define WINDOW_SIZE_W 1600
 
 // Key code
@@ -45,9 +45,10 @@ typedef struct	s_vector
 
 typedef struct	s_map 
 {
-	int	**elems;
-	int	len_x;
-	int	len_y;
+	t_vector	**elems;
+	int			len_x;
+	int			len_y;
+	int			max_z;
 }				t_map;
 
 typedef struct	s_param
@@ -59,11 +60,11 @@ typedef struct	s_param
 }				t_param;
 
 // reader.c
-t_map	*reader(char *file);
-int		*to_elems(char *line);
-int		ft_map_line(char *map);		// rewrite!!!
-int		ft_getnbr(char *str);
-int		len_nbr_line(char *line);
+t_map		*reader(char *file);
+t_vector	*to_elems(char *line, int axis_y);
+int			ft_map_line(char *map);		// rewrite!!!
+int			ft_getnbr(char *str);
+int			len_nbr_line(char *line);
 
 // error.c
 void	fdf_exit(void);
