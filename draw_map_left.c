@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:08:47 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 17:13:10 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:21:24 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ void	draw_line_left_vert(t_param *param, t_vector point1, t_vector point2, t_vec
 		j++;
 	}
 
-	dz = point2.z - point1.z;
-	dy = point2.y - point1.y;
 	e = dy - dz;
-	i = point1.z;
 	j = point1.y;
 	if (dy > 0)
 		while (j <= point2.y - 1)

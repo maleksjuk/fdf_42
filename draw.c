@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 21:05:32 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 15:27:35 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:27:01 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	draw_reload(t_param *param, t_map *map)
 //	param->img = mlx_new_image(param->mlx, WINDOW_SIZE_W + 100, WINDOW_SIZE_H + 100);
 	draw_map(param, map);
 	draw_map_up(param, map);
-	draw_map_left(param, map);
+//	draw_map_left(param, map);
+	mlx_string_put(param->mlx, param->wnd, WINDOW_SIZE_W / 2,
+		WINDOW_SIZE_H / 10, 0xffffff, "DEMONSTRATION VERSION!!! Here will a 'vid sboku'");
 	draw_map_iso(param, map);
 //	mlx_put_image_to_window(param->mlx, param->wnd, param->img, -50, -50);
 //	mlx_destroy_image(param->mlx, param->img);
