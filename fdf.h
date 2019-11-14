@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 19:48:16 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:08:00 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@
 # define SIZE 30
 # define SIZE_H 12
 
-# define WINDOW_SIZE_H 1000
-# define WINDOW_SIZE_W 1600
+# define WINDOW_SIZE_H 1200
+# define WINDOW_SIZE_W 1800
 
-// Key code
 # define KEY_ESC 53
 
-# define KEY_FRONT 89
-# define KEY_UP 83
-# define KEY_LEFT 92
-# define KEY_ISO 85
+// коэффициенты для масштабирования
+# define WIDTH 600
+# define HEIGHT 400
+# define ALTITUDE 200
 
 typedef struct	s_vector
 {

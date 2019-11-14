@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:10:11 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 11:57:07 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:05:03 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,22 @@
 
 void	draw_line_iso(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
 {
-	int	dx;
+/*	int	dx;
 	int	dy;
 	int	e;
 	int	i;
-	int	j;
+	int	j;*/
+
+	int	dx;
+	int	dy;
+	int	e;
+	int	sign_x;
+	int	sign_y;
+	int	e2;
 
 //	dx = abs(point2.x - point1.x);
 //	dy = abs(point2.y - point1.y);
-	dx = point2.x - point1.x;
+/*	dx = point2.x - point1.x;
 	dy = point2.y - point1.y;
 	e = dy - dx;
 	i = point1.x;
@@ -37,45 +44,6 @@ void	draw_line_iso(t_param *param, t_vector point1, t_vector point2, t_vector *f
 		}
 		i++;
 		e += dy;
-	}
-}
-
-void	draw_line_iso_vert(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
-{
-	int	dx;
-	int	dy;
-	int	e;
-//	int	i;
-//	int	j;
-	int	sign_x;
-	int	sign_y;
-	int	e2;
-
-	/*dx = abs(point2.x - point1.x);
-	dy = abs(point2.y - point1.y);
-	i = point1.x;
-	j = point1.y;
-	while (j <= point2.y - 1)
-	{
-		draw_pixel(param, i, j, first_point, point2.x);
-		j++;
-	}*/
-
-	/*dx = point2.x - point1.x;
-	dy = point2.y - point1.y;
-	e = dx - dy;
-	i = point1.x;
-	j = point1.y;
-	while (j <= point2.y - 1)
-	{
-		draw_pixel(param, i, j, first_point, point2.z);
-		if (e <= 0)
-		{
-			i--;
-			e += dy;
-		}
-		j++;
-		e += dx;
 	}*/
 
 	dx = abs(point2.x - point1.x);
@@ -103,6 +71,41 @@ void	draw_line_iso_vert(t_param *param, t_vector point1, t_vector point2, t_vect
 		}
 	}
 }
+
+/*void	draw_line_iso_vert(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
+{
+	int	dx;
+	int	dy;
+	int	e;
+	int	sign_x;
+	int	sign_y;
+	int	e2;
+
+	dx = abs(point2.x - point1.x);
+	dy = abs(point2.y - point1.y);
+	sign_x = 1;
+	if (point1.x >= point2.x)
+		sign_x = -1;
+	sign_y = 1;
+	if (point1.y >= point2.y)
+		sign_y = -1;
+	e = dx - dy;
+	while (point1.x != point2.x || point1.y != point2.y)
+	{
+		draw_pixel(param, point1.x, point1.y, first_point, point2.z);
+		e2 = 2 * e;
+		if (e2 > -dy)
+		{
+			e -= dy;
+			point1.x += sign_x;
+		}
+		if (e2 < dx)
+		{
+			e += dx;
+			point1.y += sign_y;
+		}
+	}
+}*/
 
 /*t_map	*trans_iso_map(t_map *map)
 {
@@ -141,27 +144,31 @@ void	draw_map_iso(t_param *param, t_map *map)
 	t_vector	first_point;
 	int			prev_x;
 	int			prev_y;
+	t_vector	scale;
 
-	first_point.x = WINDOW_SIZE_W / 4 * 3 - map->len_x / 2 * SIZE + 100;
-	first_point.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * SIZE - 100;
+	scale.x = WIDTH / map->len_x;
+	scale.y = HEIGHT / map->len_y;
+	scale.z = ALTITUDE / map->max_z;
+	first_point.x = WINDOW_SIZE_W / 4 * 3 - map->len_x / 4 * SIZE;
+	first_point.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 4 * 3 * SIZE - 100;
 	j = 0;
 	while (j < map->len_y)
 	{
 		i = 0;
 		while (i < map->len_x)
 		{
-			point1.x = map->elems[j][i].x * SIZE;
-			point1.y = map->elems[j][i].y * SIZE;
-			point1.z = map->elems[j][i].z * SIZE;
+			point1.x = map->elems[j][i].x * scale.x; //SIZE; // map->len_x * WIDTH;
+			point1.y = map->elems[j][i].y * scale.y; //SIZE; // map->len_y * HEIGHT;
+			point1.z = map->elems[j][i].z * scale.z; //SIZE; // map->max_z * ALTITUDE;
 			prev_x = point1.x;
 			prev_y = point1.y;
 			point1.x = (prev_x - prev_y) * cos(0.523599);
 			point1.y = -point1.z + (prev_x + prev_y) * sin(0.523599);
 			if (i < map->len_x - 1)
 			{
-				point2.x = map->elems[j][i + 1].x * SIZE;
-				point2.y = map->elems[j][i + 1].y * SIZE;
-				point2.z = map->elems[j][i + 1].z * SIZE;
+				point2.x = map->elems[j][i + 1].x * scale.x; //SIZE; // map->len_x * WIDTH;
+				point2.y = map->elems[j][i + 1].y * scale.y; //SIZE; // map->len_y * HEIGHT;
+				point2.z = map->elems[j][i + 1].z * scale.z; //SIZE; // map->max_z * ALTITUDE;
 				prev_x = point2.x;
 				prev_y = point2.y;
 				point2.x = (prev_x - prev_y) * cos(0.523599);
@@ -171,14 +178,15 @@ void	draw_map_iso(t_param *param, t_map *map)
 			}
 			if (j < map->len_y - 1)
 			{
-				point2.x = map->elems[j + 1][i].x * SIZE;
-				point2.y = map->elems[j + 1][i].y * SIZE;
-				point2.z = map->elems[j + 1][i].z * SIZE;
+				point2.x = map->elems[j + 1][i].x * scale.x; //SIZE; // map->len_x * WIDTH;
+				point2.y = map->elems[j + 1][i].y * scale.y; //SIZE; // map->len_y * HEIGHT;
+				point2.z = map->elems[j + 1][i].z * scale.z; //SIZE; // map->max_z * ALTITUDE;
 				prev_x = point2.x;
 				prev_y = point2.y;
 				point2.x = (prev_x - prev_y) * cos(0.523599);
 				point2.y = -point2.z + (prev_x + prev_y) * sin(0.523599);
-				draw_line_iso_vert(param, point1, point2, &first_point);
+				draw_line_iso(param, point1, point2, &first_point);
+			//	draw_line_iso_vert(param, point1, point2, &first_point);
 			}
 			i++;
 		}

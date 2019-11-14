@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:07:47 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 15:46:09 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:02:43 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	draw_map(t_param *param, t_map *map)
 	t_vector	point1;
 	t_vector	point2;
 	t_vector	first_point;
+	t_vector	scale;
 
+	scale.x = WIDTH / map->len_x;
+	scale.y = HEIGHT / map->len_y;
 	first_point.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * SIZE;
 	first_point.y = WINDOW_SIZE_H / 4 - map->len_y / 2 * SIZE;
 	j = 0;
@@ -72,20 +75,20 @@ void	draw_map(t_param *param, t_map *map)
 		i = 0;
 		while (i < map->len_x)
 		{
-			point1.x = i * SIZE;
-			point1.y = j * SIZE;
+			point1.x = i * scale.x; //SIZE; // map->len_x * WIDTH;
+			point1.y = j * scale.y; //SIZE; // map->len_y * HEIGHT;
 			point1.z = map->elems[j][i].z;
 			if (i < map->len_x - 1)
 			{
-				point2.x = (i + 1) * SIZE;
-				point2.y = j * SIZE;
+				point2.x = (i + 1) * scale.x; //SIZE; // map->len_x * WIDTH;
+				point2.y = j * scale.y; //SIZE;
 				point2.z = map->elems[j][i + 1].z;
 				draw_line(param, point1, point2, &first_point);
 			}
 			if (j < map->len_y - 1)
 			{
-				point2.x = i * SIZE;
-				point2.y = (j + 1) * SIZE;
+				point2.x = i * scale.x; //SIZE;// map->len_x * WIDTH;
+				point2.y = (j + 1) * scale.y; //SIZE;// map->len_y * HEIGHT;
 				point2.z = map->elems[j + 1][i].z;
 				draw_line_vert(param, point1, point2, &first_point);
 			}

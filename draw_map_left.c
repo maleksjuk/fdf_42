@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:08:47 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 17:21:24 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 12:09:45 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_line_left(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
 {
-	int	dy;
+/*	int	dy;
 	int	dz;
 	int	e;
 	int	i;
@@ -49,6 +49,39 @@ void	draw_line_left(t_param *param, t_vector point1, t_vector point2, t_vector *
 			i++;
 			e -= dy;
 		}
+	*/
+
+	int	dz;
+	int	dy;
+	int	e;
+	int	sign_z;
+	int	sign_y;
+	int	e2;
+
+	dz = abs(point2.z - point1.z);
+	dy = abs(point2.y - point1.y);
+	sign_z = 1;
+	if (point1.z >= point2.z)
+		sign_z = -1;
+	sign_y = 1;
+	if (point1.y >= point2.y)
+		sign_y = -1;
+	e = dz - dy;
+	while (point1.z != point2.z || point1.y != point2.y)
+	{
+		draw_pixel(param, point1.z, point1.y, first_point, point2.z);
+		e2 = 2 * e;
+		if (e2 > -dy)
+		{
+			e -= dy;
+			point1.x += sign_z;
+		}
+		if (e2 < dz)
+		{
+			e += dz;
+			point1.y += sign_y;
+		}
+	}
 }
 
 void	draw_line_left_vert(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
@@ -128,7 +161,8 @@ void	draw_map_left(t_param *param, t_map *map)
 				point2.x = i * SIZE;
 				point2.y = (j + 1) * SIZE;
 				point2.z = map->elems[j + 1][i].z * SIZE_H;
-				draw_line_left_vert(param, point1, point2, &first_point);
+				draw_line_left(param, point1, point2, &first_point);
+			//	draw_line_left_vert(param, point1, point2, &first_point);
 			}
 			i++;
 		}

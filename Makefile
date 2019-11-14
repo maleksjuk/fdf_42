@@ -6,7 +6,7 @@
 #    By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/13 19:31:28 by obanshee          #+#    #+#              #
-#    Updated: 2019/11/13 19:31:32 by obanshee         ###   ########.fr        #
+#    Updated: 2019/11/14 12:13:17 by obanshee         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ CFLAGS = -Wall -Wextra -Werror
 HEAD = fdf.h
 
 SRC =	main.c reader.c error.c draw.c hook.c draw_map_front.c draw_map_up.c \
-	draw_map_left.c draw_map_iso.c
+	draw_map_iso.c #draw_map_left.c 
 
 OBJ = $(patsubst %.c,%.o,$(addprefix $(PATH_SRC), $(SRC)))
 

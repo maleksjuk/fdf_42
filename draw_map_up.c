@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:09:33 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 16:28:19 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:10:17 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_line_up(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
 {
-	int	dx;
+	/*int	dx;
 	int	dz;
 	int	e;
 	int	i;
@@ -48,7 +48,39 @@ void	draw_line_up(t_param *param, t_vector point1, t_vector point2, t_vector *fi
 			}
 			i++;
 			e -= dz;
+		}*/
+
+	int	dx;
+	int	dz;
+	int	e;
+	int	sign_x;
+	int	sign_z;
+	int	e2;
+
+	dx = abs(point2.x - point1.x);
+	dz = abs(point2.z - point1.z);
+	sign_x = 1;
+	if (point1.x >= point2.x)
+		sign_x = -1;
+	sign_z = 1;
+	if (point1.z >= point2.z)
+		sign_z = -1;
+	e = dx - dz;
+	while (point1.x != point2.x || point1.z != point2.z)
+	{
+		draw_pixel(param, point1.x, point1.z, first_point, point2.z);
+		e2 = 2 * e;
+		if (e2 > -dz)
+		{
+			e -= dz;
+			point1.x += sign_x;
 		}
+		if (e2 < dx)
+		{
+			e += dx;
+			point1.z += sign_z;
+		}
+	}	
 }
 
 void	draw_line_up_vert(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
@@ -76,7 +108,11 @@ void	draw_map_up(t_param *param, t_map *map)
 	t_vector	point1;
 	t_vector	point2;
 	t_vector	first_point;
+	t_vector	scale;
 
+	scale.x = WIDTH / map->len_x;
+	scale.y = HEIGHT / map->len_y;
+	scale.z = ALTITUDE / map->max_z;
 	first_point.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * SIZE;
 	first_point.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * SIZE;
 	j = 0;
@@ -85,22 +121,23 @@ void	draw_map_up(t_param *param, t_map *map)
 		i = 0;
 		while (i < map->len_x)
 		{
-			point1.x = i * SIZE;
-			point1.y = j * SIZE;
-			point1.z = map->elems[j][i].z * SIZE_H;
+			point1.x = i * scale.x; //SIZE;
+			point1.y = j * scale.y; //SIZE;
+			point1.z = map->elems[j][i].z * scale.z; //SIZE_H;
 			if (i < map->len_x - 1)
 			{
-				point2.x = (i + 1) * SIZE;
-				point2.y = j * SIZE;
-				point2.z = map->elems[j][i + 1].z * SIZE_H;
+				point2.x = (i + 1) * scale.x; //SIZE;
+				point2.y = j * scale.y; //SIZE;
+				point2.z = map->elems[j][i + 1].z * scale.z; //SIZE_H;
 				draw_line_up(param, point1, point2, &first_point);
 			}
 			if (j < map->len_y - 1)
 			{
-				point2.x = i * SIZE;
-				point2.y = (j + 1) * SIZE;
-				point2.z = map->elems[j + 1][i].z * SIZE_H;
-				draw_line_up_vert(param, point1, point2, &first_point);
+				point2.x = i * scale.x; //SIZE;
+				point2.y = (j + 1) * scale.y; //SIZE;
+				point2.z = map->elems[j + 1][i].z * scale.z; //SIZE_H;
+				draw_line_up(param, point1, point2, &first_point);
+			//	draw_line_up_vert(param, point1, point2, &first_point);
 			}
 			i++;
 		}
