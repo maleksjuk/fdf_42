@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:10:11 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 13:26:22 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:23:36 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	draw_line_iso(t_param *param, t_vector point1, t_vector point2, t_vector *f
 	e = dx - dy;
 	while (point1.x != point2.x || point1.y != point2.y)
 	{
-		draw_pixel(param, point1.x, point1.y, first_point, point2.z);
+		draw_pixel(param, point1.x, point1.y, first_point, get_color(point1, point2));
 		e2 = 2 * e;
 		if (e2 > -dy)
 		{

@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 13:21:33 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:16:52 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	fdf_arg_error(void);
 
 // draw.c
 t_vector	get_scale(t_map map);
+int			get_color(t_vector point1, t_vector point2);
 void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt);
 void	draw(t_param *param, t_map *map);	// rewrite!!!
 

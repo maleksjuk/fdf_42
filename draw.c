@@ -6,11 +6,22 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 21:05:32 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 13:14:56 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:21:20 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int			get_color(t_vector point1, t_vector point2)
+{
+	int	alt;
+
+	alt = 0;
+	if (point1.z > 0 && point2.z > 0)
+		alt = point1.z;
+	point1.x = point1.x;
+	return (alt);
+}
 
 t_vector	get_scale(t_map map)
 {
@@ -25,16 +36,14 @@ t_vector	get_scale(t_map map)
 void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt)
 {
 	int	color;
+	t_vector	scale;
 
+	scale = get_scale(*(param->map));
 	color = 0xffffff;
-	if (alt == param->map->max_z)
+	if (alt == param->map->max_z * scale.z || alt == param->map->max_z)
 		color = 0x00ff00;
 	else if (alt > 0)
 		color = 0xff0000;
-	/*if (alt > 0)
-		color = 0x00FF00;
-	else
-		color = 0xFFFFFF;*/
 	mlx_pixel_put(param->mlx, param->wnd, i + first_point->x, j + first_point->y, color);
 }
 

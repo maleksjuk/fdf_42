@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:07:47 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 13:26:48 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:23:22 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,42 +17,33 @@ void	draw_line(t_param *param, t_vector point1, t_vector point2, t_vector *first
 	int	dx;
 	int	dy;
 	int	e;
-	int	i;
-	int	j;
+	int	sign_x;
+	int	sign_y;
+	int	e2;
 
-	dx = point2.x - point1.x;
-	dy = point2.y - point1.y;
-	e = dy - dx;
-	i = point1.x;
-	j = point1.y;
-	while (i <= point2.x - 1)
+	dx = abs(point2.x - point1.x);
+	dy = abs(point2.y - point1.y);
+	sign_x = 1;
+	if (point1.x >= point2.x)
+		sign_x = -1;
+	sign_y = 1;
+	if (point1.y >= point2.y)
+		sign_y = -1;
+	e = dx - dy;
+	while (point1.x != point2.x || point1.y != point2.y)
 	{
-		draw_pixel(param, i, j, first_point, point1.z);
-		if (e >= 0)
+		draw_pixel(param, point1.x, point1.y, first_point, get_color(point1, point2));
+		e2 = 2 * e;
+		if (e2 > -dy)
 		{
-			j++;
-			e -= dx;
+			e -= dy;
+			point1.x += sign_x;
 		}
-		i++;
-		e += dy;
-	}
-}
-
-void	draw_line_vert(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
-{
-	int	dx;
-	int	dy;
-	int	i;
-	int	j;
-
-	dx = point2.x - point1.x;
-	dy = point2.y - point1.y;
-	i = point1.x;
-	j = point1.y;
-	while (j <= point2.y - 1)
-	{
-		draw_pixel(param, i, j, first_point, point1.z);
-		j++;
+		if (e2 < dx)
+		{
+			e += dx;
+			point1.y += sign_y;
+		}
 	}
 }
 
@@ -89,7 +80,7 @@ void	draw_map(t_param *param, t_map *map)
 				point2.x = i * scale.x;
 				point2.y = (j + 1) * scale.y;
 				point2.z = map->elems[j + 1][i].z;
-				draw_line_vert(param, point1, point2, &first_point);
+				draw_line(param, point1, point2, &first_point);
 			}
 			i++;
 		}
