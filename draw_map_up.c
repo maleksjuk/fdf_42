@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:09:33 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 13:10:17 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:20:45 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,12 @@ void	draw_map_up(t_param *param, t_map *map)
 	t_vector	first_point;
 	t_vector	scale;
 
-	scale.x = WIDTH / map->len_x;
+	/*scale.x = WIDTH / map->len_x;
 	scale.y = HEIGHT / map->len_y;
-	scale.z = ALTITUDE / map->max_z;
-	first_point.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * SIZE;
-	first_point.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * SIZE;
+	scale.z = ALTITUDE / map->max_z;*/
+	scale = get_scale(*(param->map));
+	first_point.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * scale.x;
+	first_point.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * scale.y;
 	j = 0;
 	while (j < map->len_y)
 	{

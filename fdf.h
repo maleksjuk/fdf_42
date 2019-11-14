@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 13:08:00 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:21:33 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # define SIZE_H 12
 
 # define WINDOW_SIZE_H 1200
-# define WINDOW_SIZE_W 1800
+# define WINDOW_SIZE_W 2200
 
 # define KEY_ESC 53
 
 // коэффициенты для масштабирования
-# define WIDTH 600
-# define HEIGHT 400
-# define ALTITUDE 200
+# define WIDTH 1000
+# define HEIGHT 600
+# define ALTITUDE 300
 
 typedef struct	s_vector
 {
@@ -72,6 +72,7 @@ void	fdf_map_error(void);
 void	fdf_arg_error(void);
 
 // draw.c
+t_vector	get_scale(t_map map);
 void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt);
 void	draw(t_param *param, t_map *map);	// rewrite!!!
 

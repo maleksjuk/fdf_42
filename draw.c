@@ -6,11 +6,21 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 21:05:32 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 12:26:57 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 13:14:56 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+t_vector	get_scale(t_map map)
+{
+	t_vector	scale;
+
+	scale.x = WIDTH / map.len_x;
+	scale.y = HEIGHT / map.len_y;
+	scale.z = ALTITUDE / map.max_z;
+	return (scale);
+}
 
 void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt)
 {
