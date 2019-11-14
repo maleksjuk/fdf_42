@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:10:11 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 00:13:27 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 11:57:07 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ void	draw_line_iso_vert(t_param *param, t_vector point1, t_vector point2, t_vect
 	int	dx;
 	int	dy;
 	int	e;
-	int	i;
-	int	j;
+//	int	i;
+//	int	j;
+	int	sign_x;
+	int	sign_y;
+	int	e2;
 
 	/*dx = abs(point2.x - point1.x);
 	dy = abs(point2.y - point1.y);
@@ -58,7 +61,7 @@ void	draw_line_iso_vert(t_param *param, t_vector point1, t_vector point2, t_vect
 		j++;
 	}*/
 
-	dx = point2.x - point1.x;
+	/*dx = point2.x - point1.x;
 	dy = point2.y - point1.y;
 	e = dx - dy;
 	i = point1.x;
@@ -73,6 +76,31 @@ void	draw_line_iso_vert(t_param *param, t_vector point1, t_vector point2, t_vect
 		}
 		j++;
 		e += dx;
+	}*/
+
+	dx = abs(point2.x - point1.x);
+	dy = abs(point2.y - point1.y);
+	sign_x = 1;
+	if (point1.x >= point2.x)
+		sign_x = -1;
+	sign_y = 1;
+	if (point1.y >= point2.y)
+		sign_y = -1;
+	e = dx - dy;
+	while (point1.x != point2.x || point1.y != point2.y)
+	{
+		draw_pixel(param, point1.x, point1.y, first_point, point2.z);
+		e2 = 2 * e;
+		if (e2 > -dy)
+		{
+			e -= dy;
+			point1.x += sign_x;
+		}
+		if (e2 < dx)
+		{
+			e += dx;
+			point1.y += sign_y;
+		}
 	}
 }
 
