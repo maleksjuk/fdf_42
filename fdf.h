@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 16:48:46 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 18:47:38 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,13 @@ typedef struct	s_param
 }				t_param;
 
 // reader.c
-t_map		*reader(char *file);
+int			reader(char *file, t_map *map);
 t_vector	*to_elems(char *line, int axis_y);
 int			map_line(char *map);		// rewrite!!!
 int			len_nbr_line(char *line);
+
+// check_input.c
+int			extra_char(char *line);
 
 // error.c
 void		fdf_exit(void);

@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 16:40:26 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 19:25:18 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (1);
-	map = reader(av[1]);
+	if (!(map = (t_map *)malloc(sizeof(t_map))))
+		fdf_malloc_error();
+	if (reader(av[1], map))					// ERRORS
+	{
+		printf("ERROR CHECK\n");
+		return (0);
+	}
 	param.mlx = mlx_init();
 	param.wnd = mlx_new_window(param.mlx, WINDOW_SIZE_W, WINDOW_SIZE_H, "FDF");
 	param.map = map;
