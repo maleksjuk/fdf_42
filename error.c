@@ -6,31 +6,54 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:48:05 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/11 15:48:09 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 21:26:07 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_exit(void)
+void	error_malloc(t_map *map)
 {
+	ft_putstr_fd("malloc error\n", 2);
+	free_map(map);
 	exit(1);
 }
 
-void	fdf_malloc_error(void)
+void	error_open(t_map *map)
 {
-	ft_putstr_fd("malloc error\n", 2);
-	fdf_exit();
+	ft_putstr_fd("error of open file\n", 2);
+	free_map(map);
+	exit(1);
 }
 
-void	fdf_map_error(void)
+void	error_valid(t_map *map)
 {
-	ft_putstr_fd("map error\n", 2);
-	fdf_exit();
+	ft_putstr_fd("map invalid\n", 2);
+	free(map);
+	exit(1);
 }
 
-void	fdf_arg_error(void)
+void	error_arg(void)
 {
-	ft_putstr_fd("Un seul argument pris en compte.\n", 2);
-	fdf_exit();
+	ft_putstr_fd("usage: ./fdf [file]\n", 2);
+	exit(1);
+}
+
+void	free_map(t_map *map)
+{
+	int	j;
+
+	if (map == NULL)
+		return ;
+	if (map->elems)
+	{
+		j = 0;
+		while (map->elems[j])
+		{
+			free(map->elems[j]);
+			j++;
+		}
+		free(map->elems);
+	}
+	free(map);
 }

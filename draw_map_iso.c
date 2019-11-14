@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:10:11 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 17:16:18 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 19:53:50 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	draw_map_iso(t_param *param, t_map *map)
 	t_vector	scale;
 
 	scale = get_scale(*(param->map));
-	first.x = WINDOW_SIZE_W / 4 * 3 - map->len_x / 5 * scale.x;
-	first.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * scale.y;
+	first.x = WINDOW_SIZE_W / 4 * 3 - map->len_x / 4 * scale.x;
+	first.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * 2 * scale.y;
 	count[1] = 0;
 	while (count[1] < map->len_y)
 	{

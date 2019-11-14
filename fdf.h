@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 18:47:38 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 21:23:59 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@
 
 # define KEY_ESC 53
 
-// коэффициенты для масштабирования
-# define WIDTH 1000
-# define HEIGHT 600
+# define WIDTH 900
+# define HEIGHT 500
 # define ALTITUDE 300
 
 typedef struct	s_vector
@@ -61,40 +60,32 @@ typedef struct	s_param
 // reader.c
 int			reader(char *file, t_map *map);
 t_vector	*to_elems(char *line, int axis_y);
-int			map_line(char *map);		// rewrite!!!
+int			map_line(char *map, t_map *point);
 int			len_nbr_line(char *line);
 
 // check_input.c
 int			extra_char(char *line);
 
 // error.c
-void		fdf_exit(void);
-void		fdf_malloc_error(void);
-void		fdf_map_error(void);
-void		fdf_arg_error(void);
+void		error_malloc(t_map *map);
+void		error_open(t_map *map);
+void		error_valid(t_map *map);
+void		error_arg(void);
+void		free_map(t_map *map);
 
 // draw.c
 t_vector	get_scale(t_map map);
 int			get_color(t_vector point1, t_vector point2);
 void		draw_pixel(t_param *param, t_vector coord, t_vector *first, int alt);
-void		draw(t_param *param, t_map *map);	// rewrite!!!
+void		draw(t_param *param, t_map *map);
 
-// draw_map_front.c
+// draw_map.c
 void		draw_map(t_param *param, t_map *map);
-
-// draw_map_up.c
 void		draw_map_up(t_param *param, t_map *map);
-
-// draw_map_left.c
-void		draw_map_left(t_param *param, t_map *map);
-
-// draw_map_iso.c
 void		draw_map_iso(t_param *param, t_map *map);
 
-// hook.c
-int			key_hook(int keycode, t_param *param);	// rewrite
-
 // main.c
+int			key_hook(int keycode, t_param *param);
 int			get_nbr(char *str);
 
 #endif

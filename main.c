@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 19:25:18 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 21:30:39 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,26 @@ int	get_nbr(char *str)
 	return ((negative == 1) ? -nbr : nbr);
 }
 
+int	key_hook(int keycode, t_param *param)
+{
+	if (keycode == KEY_ESC)
+	{
+		mlx_destroy_window(param->mlx, param->wnd);
+		//free_map(param->map);
+		exit(0);
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_map	*map;
 	t_param	param;
 
 	if (ac != 2)
-		return (1);
+		error_arg();
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
-		fdf_malloc_error();
+		error_malloc(NULL);
 	if (reader(av[1], map))					// ERRORS
 	{
 		printf("ERROR CHECK\n");

@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:56:27 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 19:25:04 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 21:35:54 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			len_nbr_line(char *line)
 	return (len + 1);
 }
 
-int			map_line(char *map)
+int			map_line(char *map, t_map *point)
 {
 	int		fd;
 	int		nbr;
@@ -35,7 +35,7 @@ int			map_line(char *map)
 	fd = 0;
 	nbr = 0;
 	if ((fd = open(map, O_RDONLY)) < 0)
-		fdf_map_error();
+		error_open(point);
 	while (read(fd, &buf, 1))
 	{
 		if (buf == '\n')
@@ -53,7 +53,8 @@ t_vector	*to_elems(char *line, int axis_y)
 
 	array_line = ft_strsplit(line, ' ');
 	i = 0;
-	array_elem = (t_vector *)malloc(sizeof(t_vector) * len_nbr_line(line));
+	if (!(array_elem = (t_vector *)malloc(sizeof(t_vector) * len_nbr_line(line))))
+		return (NULL);
 	while (array_line[i])
 	{
 		array_elem[i].x = i;
@@ -61,6 +62,7 @@ t_vector	*to_elems(char *line, int axis_y)
 		array_elem[i].z = get_nbr(array_line[i]);
 		i++;
 	}
+	free(array_line);
 	return (array_elem);
 }
 
@@ -84,36 +86,36 @@ void		find_max_z(t_map *map)
 	}
 }
 
-int		reader(char *file, t_map *map)
+int			reader(char *file, t_map *map)
 {
 	int		fd;
 	char	*line;
 	int		axis_y;
-//	t_map	*map;
 	int		help;
 
 	axis_y = 0;
 	help = 0;
-	if (!(map->elems = (t_vector **)malloc(sizeof(t_vector) * map_line(file))))
-		fdf_malloc_error();
+	if (!(map->elems = (t_vector **)malloc(sizeof(t_vector) * map_line(file, map))))
+		error_malloc(map);
 	map->len_x = 0;
 	map->len_y = 0;
 	if ((fd = open(file, O_RDONLY)) < 0)
-		fdf_exit();
-	
+		error_open(map);
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (extra_char(line))								// ERRORS
-			return (1);
-		map->elems[axis_y] = (t_vector *)to_elems(line, axis_y);
+			error_valid(map);
+		if (!(map->elems[axis_y] = (t_vector *)to_elems(line, axis_y)))
+			error_malloc(map);
 		if (!help)
 		{
 			map->len_x = len_nbr_line(line) - 1;
 			help = 1;
 		}
 		else if (map->len_x != len_nbr_line(line) - 1)		// ERRORS
-			return (1);
+			error_valid(map);
 		axis_y++;
+		free(line);
 	}
 	close(fd);
 	map->len_y = axis_y;
