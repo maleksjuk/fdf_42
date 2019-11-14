@@ -6,88 +6,85 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:09:33 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 15:18:43 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:08:22 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line_up(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
+void	draw_line_up(t_param *param, t_vector p1, t_vector p2, t_vector *first)
 {
-	int	dx;
-	int	dz;
-	int	e;
-	int	sign_x;
-	int	sign_z;
-	int	e2;
+	int			tab[6];
 	t_vector	point0;
+	t_vector	coord;
 
-	point0.x = point1.x;
-	point0.y = point1.y;
-	point0.z = point1.z;
-	dx = abs(point2.x - point1.x);
-	dz = abs(point2.z - point1.z);
-	sign_x = 1;
-	if (point1.x >= point2.x)
-		sign_x = -1;
-	sign_z = 1;
-	if (point1.z >= point2.z)
-		sign_z = -1;
-	e = dx - dz;
-	while (point1.x != point2.x || point1.z != point2.z)
+	point0.x = p1.x;
+	point0.y = p1.y;
+	point0.z = p1.z;
+	tab[0] = abs(p2.x - p1.x);
+	tab[1] = abs(p2.z - p1.z);
+	tab[4] = 1;
+	if (p1.x >= p2.x)
+		tab[4] = -1;
+	tab[5] = 1;
+	if (p1.z >= p2.z)
+		tab[5] = -1;
+	tab[2] = tab[0] - tab[1];
+	while (p1.x != p2.x || p1.z != p2.z)
 	{
-		draw_pixel(param, point1.x, point1.z, first_point, get_color(point0, point2));
-		e2 = 2 * e;
-		if (e2 > -dz)
+		coord.x = p1.x;
+		coord.y = p1.z;
+		draw_pixel(param, coord, first, get_color(point0, p2));
+		tab[3] = 2 * tab[2];
+		if (tab[3] > -tab[1])
 		{
-			e -= dz;
-			point1.x += sign_x;
+			tab[2] -= tab[1];
+			p1.x += tab[4];
 		}
-		if (e2 < dx)
+		if (tab[3] < tab[0])
 		{
-			e += dx;
-			point1.z += sign_z;
+			tab[2] += tab[0];
+			p1.z += tab[5];
 		}
-	}	
+	}
 }
 
 void	draw_map_up(t_param *param, t_map *map)
 {
-	int			i;
-	int			j;
+	int			count[2];
 	t_vector	point1;
 	t_vector	point2;
-	t_vector	first_point;
+	t_vector	first;
 	t_vector	scale;
 
 	scale = get_scale(*(param->map));
-	first_point.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * scale.x;
-	first_point.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * scale.y;
-	j = 0;
-	while (j < map->len_y)
+	first.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * scale.x;
+	first.y = WINDOW_SIZE_H / 4 * 3 - map->len_y / 2 * scale.y;
+	count[1] = 0;
+	while (count[1] < map->len_y)
 	{
-		i = 0;
-		while (i < map->len_x)
+		count[0] = 0;
+		while (count[0] < map->len_x)
 		{
-			point1.x = i * scale.x;
-			point1.y = j * scale.y;
-			point1.z = map->elems[j][i].z * scale.z;
-			if (i < map->len_x - 1)
+			point1.x = count[0] * scale.x;
+			point1.y = count[1] * scale.y;
+			point1.z = map->elems[count[1]][count[0]].z * scale.z;
+			if (count[0] < map->len_x - 1)
 			{
-				point2.x = (i + 1) * scale.x;
-				point2.y = j * scale.y;
-				point2.z = map->elems[j][i + 1].z * scale.z;
-				draw_line_up(param, point1, point2, &first_point);
+				point2.x = (count[0] + 1) * scale.x;
+				point2.y = count[1] * scale.y;
+				point2.z = map->elems[count[1]][count[0] + 1].z * scale.z;
+				draw_line_up(param, point1, point2, &first);
 			}
-			if (j < map->len_y - 1)
+			if (count[1] < map->len_y - 1)
 			{
-				point2.x = i * scale.x;
-				point2.y = (j + 1) * scale.y;
-				point2.z = map->elems[j + 1][i].z * scale.z;
-				draw_line_up(param, point1, point2, &first_point);
+				point2.x = count[0] * scale.x;
+				point2.y = (count[1] + 1) * scale.y;
+				point2.z = map->elems[count[1] + 1][count[0]].z * scale.z;
+				draw_line_up(param, point1, point2, &first);
 			}
-			i++;
+			count[0]++;
 		}
-		j++;
+		count[1]++;
 	}
 }

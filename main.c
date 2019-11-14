@@ -6,46 +6,40 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/13 19:45:10 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:40:26 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*void	print_map(t_map *map)
+int	get_nbr(char *str)
 {
-	int	i;
-	int	j;
+	int nbr;
+	int negative;
 
-	printf("=== BEGIN ===\n");
-	j = 0;
-	while (j < map->len_y)
+	negative = 0;
+	if (str[0] == '-')
 	{
-		i = 0;
-		while (i < map->len_x)
-		{
-			printf("%-*i", 3, map->elems[j][i].z);
-			i++;
-		}
-		printf("\n");
-		j++;
+		negative = 1;
+		str++;
 	}
-	printf("=== END ===\n");
-}*/
+	nbr = 0;
+	while ((*str >= '0') && (*str <= '9'))
+		nbr = (nbr * 10) + *str++ - '0';
+	return ((negative == 1) ? -nbr : nbr);
+}
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_map	*map;
 	t_param	param;
 
-	printf("*** main.c: begin\n");
 	if (ac != 2)
 		return (1);
 	map = reader(av[1]);
 	param.mlx = mlx_init();
 	param.wnd = mlx_new_window(param.mlx, WINDOW_SIZE_W, WINDOW_SIZE_H, "FDF");
 	param.map = map;
-//	print_map(map);
 	draw(&param, map);
 	mlx_hook(param.wnd, 2, 3, key_hook, &param);
 	mlx_loop(param.mlx);

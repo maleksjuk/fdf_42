@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:35:53 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 15:16:52 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 16:48:46 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,37 +61,37 @@ typedef struct	s_param
 // reader.c
 t_map		*reader(char *file);
 t_vector	*to_elems(char *line, int axis_y);
-int			ft_map_line(char *map);		// rewrite!!!
-int			ft_getnbr(char *str);
+int			map_line(char *map);		// rewrite!!!
 int			len_nbr_line(char *line);
 
 // error.c
-void	fdf_exit(void);
-void	fdf_malloc_error(void);
-void	fdf_map_error(void);
-void	fdf_arg_error(void);
+void		fdf_exit(void);
+void		fdf_malloc_error(void);
+void		fdf_map_error(void);
+void		fdf_arg_error(void);
 
 // draw.c
 t_vector	get_scale(t_map map);
 int			get_color(t_vector point1, t_vector point2);
-void	draw_pixel(t_param *param, int i, int j, t_vector *first_point, int alt);
-void	draw(t_param *param, t_map *map);	// rewrite!!!
+void		draw_pixel(t_param *param, t_vector coord, t_vector *first, int alt);
+void		draw(t_param *param, t_map *map);	// rewrite!!!
 
 // draw_map_front.c
-void	draw_map(t_param *param, t_map *map);
+void		draw_map(t_param *param, t_map *map);
 
 // draw_map_up.c
-void	draw_map_up(t_param *param, t_map *map);
+void		draw_map_up(t_param *param, t_map *map);
 
 // draw_map_left.c
-void	draw_map_left(t_param *param, t_map *map);
+void		draw_map_left(t_param *param, t_map *map);
 
 // draw_map_iso.c
-void	draw_map_iso(t_param *param, t_map *map);
+void		draw_map_iso(t_param *param, t_map *map);
 
 // hook.c
-int		key_hook(int keycode, t_param *param);	// rewrite
+int			key_hook(int keycode, t_param *param);	// rewrite
 
 // main.c
+int			get_nbr(char *str);
 
 #endif

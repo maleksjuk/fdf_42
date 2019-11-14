@@ -6,84 +6,81 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 23:07:47 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 15:23:22 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 17:00:45 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_line(t_param *param, t_vector point1, t_vector point2, t_vector *first_point)
+void	draw_line(t_param *param, t_vector p1, t_vector p2, t_vector *first)
 {
-	int	dx;
-	int	dy;
-	int	e;
-	int	sign_x;
-	int	sign_y;
-	int	e2;
+	int			tab[6];
+	t_vector	coord;
 
-	dx = abs(point2.x - point1.x);
-	dy = abs(point2.y - point1.y);
-	sign_x = 1;
-	if (point1.x >= point2.x)
-		sign_x = -1;
-	sign_y = 1;
-	if (point1.y >= point2.y)
-		sign_y = -1;
-	e = dx - dy;
-	while (point1.x != point2.x || point1.y != point2.y)
+	tab[0] = abs(p2.x - p1.x);
+	tab[1] = abs(p2.y - p1.y);
+	tab[4] = 1;
+	if (p1.x >= p2.x)
+		tab[4] = -1;
+	tab[5] = 1;
+	if (p1.y >= p2.y)
+		tab[5] = -1;
+	tab[2] = tab[0] - tab[1];
+	while (p1.x != p2.x || p1.y != p2.y)
 	{
-		draw_pixel(param, point1.x, point1.y, first_point, get_color(point1, point2));
-		e2 = 2 * e;
-		if (e2 > -dy)
+		coord.x = p1.x;
+		coord.y = p1.y;
+		draw_pixel(param, coord, first, get_color(p1, p2));
+		tab[3] = 2 * tab[2];
+		if (tab[3] > -tab[1])
 		{
-			e -= dy;
-			point1.x += sign_x;
+			tab[2] -= tab[1];
+			p1.x += tab[4];
 		}
-		if (e2 < dx)
+		if (tab[3] < tab[0])
 		{
-			e += dx;
-			point1.y += sign_y;
+			tab[2] += tab[0];
+			p1.y += tab[5];
 		}
 	}
 }
 
 void	draw_map(t_param *param, t_map *map)
 {
-	int			i;
-	int			j;
+	int			count[2];
 	t_vector	point1;
 	t_vector	point2;
-	t_vector	first_point;
+	t_vector	first;
 	t_vector	scale;
 
 	scale = get_scale(*(param->map));
-	first_point.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * scale.x;
-	first_point.y = WINDOW_SIZE_H / 4 - map->len_y / 2 * scale.y;
-	j = 0;
-	while (j < map->len_y)
+	first.x = WINDOW_SIZE_W / 4 - map->len_x / 2 * scale.x;
+	first.y = WINDOW_SIZE_H / 4 - map->len_y / 2 * scale.y;
+	count[1] = 0;
+	while (count[1] < map->len_y)
 	{
-		i = 0;
-		while (i < map->len_x)
+		count[0] = 0;
+		while (count[0] < map->len_x)
 		{
-			point1.x = i * scale.x;
-			point1.y = j * scale.y;
-			point1.z = map->elems[j][i].z;
-			if (i < map->len_x - 1)
+			point1.x = count[0] * scale.x;
+			point1.y = count[1] * scale.y;
+			point1.z = map->elems[count[1]][count[0]].z;
+			if (count[0] < map->len_x - 1)
 			{
-				point2.x = (i + 1) * scale.x;
-				point2.y = j * scale.y;
-				point2.z = map->elems[j][i + 1].z;
-				draw_line(param, point1, point2, &first_point);
+				point2.x = (count[0] + 1) * scale.x;
+				point2.y = count[1] * scale.y;
+				point2.z = map->elems[count[1]][count[0] + 1].z;
+				draw_line(param, point1, point2, &first);
 			}
-			if (j < map->len_y - 1)
+			if (count[1] < map->len_y - 1)
 			{
-				point2.x = i * scale.x;
-				point2.y = (j + 1) * scale.y;
-				point2.z = map->elems[j + 1][i].z;
-				draw_line(param, point1, point2, &first_point);
+				point2.x = count[0] * scale.x;
+				point2.y = (count[1] + 1) * scale.y;
+				point2.z = map->elems[count[1] + 1][count[0]].z;
+				draw_line(param, point1, point2, &first);
 			}
-			i++;
+			count[0]++;
 		}
-		j++;
+		count[1]++;
 	}
 }
