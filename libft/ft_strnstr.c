@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehayes <ehayes@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 11:45:35 by ybarbier          #+#    #+#             */
-/*   Updated: 2014/11/08 16:01:51 by ybarbier         ###   ########.fr       */
+/*   Created: 2019/11/14 23:51:01 by obanshee          #+#    #+#             */
+/*   Updated: 2019/11/15 00:04:41 by ehayes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 			while (s1[i] != s2[j] && s1[i])
 				i++;
 			str = (char*)&(s1[i]);
-			while (s1[i] == s2[j] && s1[i] && s2[j] && i < n)
-				i++, j++;
+			while (s1[i] == s2[j] && s1[i] && s2[j] && i++ < n)
+				j++;
 			if (!s2[j])
 				return (str);
 			else

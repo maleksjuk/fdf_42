@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehayes <ehayes@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 19:24:44 by ybarbier          #+#    #+#             */
-/*   Updated: 2014/11/06 11:28:06 by ybarbier         ###   ########.fr       */
+/*   Created: 2019/11/14 23:52:45 by obanshee          #+#    #+#             */
+/*   Updated: 2019/11/15 00:05:41 by ehayes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_striter(char *s, void (*f)(char *))
+void	ft_striter(char *s, void (*f)(char *))
 {
 	char			*str;
 	unsigned int	counter;

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehayes <ehayes@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 14:10:13 by ybarbier          #+#    #+#             */
-/*   Updated: 2014/11/05 16:06:07 by ybarbier         ###   ########.fr       */
+/*   Created: 2019/11/14 23:53:03 by obanshee          #+#    #+#             */
+/*   Updated: 2019/11/15 00:01:52 by ehayes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-char *ft_strdup(const char *src)
+char	*ft_strdup(const char *src)
 {
 	unsigned int	i;
 	size_t			len;

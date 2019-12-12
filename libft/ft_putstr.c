@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehayes <ehayes@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/07 18:00:47 by ybarbier          #+#    #+#             */
-/*   Updated: 2014/11/07 18:09:28 by ybarbier         ###   ########.fr       */
+/*   Created: 2019/11/14 23:55:29 by ehayes            #+#    #+#             */
+/*   Updated: 2019/11/14 23:55:30 by ehayes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *s)
+void	t_putstr(char const *s)
 {
 	unsigned int i;
 

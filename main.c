@@ -6,13 +6,13 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:33:23 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 21:30:39 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 22:28:24 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_nbr(char *str)
+int		get_nbr(char *str)
 {
 	int nbr;
 	int negative;
@@ -29,18 +29,37 @@ int	get_nbr(char *str)
 	return ((negative == 1) ? -nbr : nbr);
 }
 
-int	key_hook(int keycode, t_param *param)
+void	find_max_z(t_map *map)
+{
+	int	i;
+	int	j;
+
+	map->max_z = 0;
+	j = 0;
+	while (j < map->len_y)
+	{
+		i = 0;
+		while (i < map->len_x)
+		{
+			if (map->elems[j][i].z > map->max_z)
+				map->max_z = map->elems[j][i].z;
+			i++;
+		}
+		j++;
+	}
+}
+
+int		key_hook(int keycode, t_param *param)
 {
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(param->mlx, param->wnd);
-		//free_map(param->map);
 		exit(0);
 	}
 	return (0);
 }
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_map	*map;
 	t_param	param;
@@ -49,11 +68,7 @@ int	main(int ac, char **av)
 		error_arg();
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		error_malloc(NULL);
-	if (reader(av[1], map))					// ERRORS
-	{
-		printf("ERROR CHECK\n");
-		return (0);
-	}
+	reader(av[1], map);
 	param.mlx = mlx_init();
 	param.wnd = mlx_new_window(param.mlx, WINDOW_SIZE_W, WINDOW_SIZE_H, "FDF");
 	param.map = map;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbier <ybarbier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ehayes <ehayes@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/05 10:11:00 by ybarbier          #+#    #+#             */
-/*   Updated: 2014/11/05 10:24:35 by ybarbier         ###   ########.fr       */
+/*   Created: 2019/11/14 23:52:15 by ehayes            #+#    #+#             */
+/*   Updated: 2019/11/14 23:52:22 by ehayes           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void *ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
 	char	*str;
 	size_t	counter;

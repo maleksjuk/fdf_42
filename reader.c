@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:56:27 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 21:35:54 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 22:28:28 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,41 +49,36 @@ t_vector	*to_elems(char *line, int axis_y)
 {
 	int			i;
 	char		**array_line;
-	t_vector	*array_elem;
+	t_vector	*a_elem;
 
 	array_line = ft_strsplit(line, ' ');
 	i = 0;
-	if (!(array_elem = (t_vector *)malloc(sizeof(t_vector) * len_nbr_line(line))))
+	if (!(a_elem = (t_vector *)malloc(sizeof(t_vector) * len_nbr_line(line))))
 		return (NULL);
 	while (array_line[i])
 	{
-		array_elem[i].x = i;
-		array_elem[i].y = axis_y;
-		array_elem[i].z = get_nbr(array_line[i]);
+		a_elem[i].x = i;
+		a_elem[i].y = axis_y;
+		a_elem[i].z = get_nbr(array_line[i]);
 		i++;
 	}
 	free(array_line);
-	return (array_elem);
+	return (a_elem);
 }
 
-void		find_max_z(t_map *map)
+int			reader_help(char *line, t_map *map, int *help)
 {
-	int	i;
-	int	j;
-
-	map->max_z = 0;
-	j = 0;
-	while (j < map->len_y)
+	if (extra_char(line))
+		error_valid(map, line);
+	if (!(*help))
 	{
-		i = 0;
-		while (i < map->len_x)
-		{
-			if (map->elems[j][i].z > map->max_z)
-				map->max_z = map->elems[j][i].z;
-			i++;
-		}
-		j++;
+		map->len_x = len_nbr_line(line) - 1;
+		*help = 1;
 	}
+	else if (map->len_x != len_nbr_line(line) - 1)
+		error_valid(map, line);
+	free(line);
+	return (0);
 }
 
 int			reader(char *file, t_map *map)
@@ -95,7 +90,8 @@ int			reader(char *file, t_map *map)
 
 	axis_y = 0;
 	help = 0;
-	if (!(map->elems = (t_vector **)malloc(sizeof(t_vector) * map_line(file, map))))
+	if (!(map->elems = (t_vector **)malloc(sizeof(t_vector) *
+		map_line(file, map))))
 		error_malloc(map);
 	map->len_x = 0;
 	map->len_y = 0;
@@ -103,19 +99,10 @@ int			reader(char *file, t_map *map)
 		error_open(map);
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (extra_char(line))								// ERRORS
-			error_valid(map);
 		if (!(map->elems[axis_y] = (t_vector *)to_elems(line, axis_y)))
 			error_malloc(map);
-		if (!help)
-		{
-			map->len_x = len_nbr_line(line) - 1;
-			help = 1;
-		}
-		else if (map->len_x != len_nbr_line(line) - 1)		// ERRORS
-			error_valid(map);
+		reader_help(line, map, &help);
 		axis_y++;
-		free(line);
 	}
 	close(fd);
 	map->len_y = axis_y;

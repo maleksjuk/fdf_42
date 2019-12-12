@@ -6,7 +6,7 @@
 /*   By: obanshee <obanshee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 15:48:05 by obanshee          #+#    #+#             */
-/*   Updated: 2019/11/14 21:26:07 by obanshee         ###   ########.fr       */
+/*   Updated: 2019/11/14 22:26:09 by obanshee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ void	error_open(t_map *map)
 	exit(1);
 }
 
-void	error_valid(t_map *map)
+void	error_valid(t_map *map, char *line)
 {
 	ft_putstr_fd("map invalid\n", 2);
 	free(map);
+	free(line);
 	exit(1);
 }
 
